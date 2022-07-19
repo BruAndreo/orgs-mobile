@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.model.Produto
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.*
 
 class ListaProdutosAdapter(
     private val context: Context,
@@ -27,7 +30,13 @@ class ListaProdutosAdapter(
         fun vincula(produto: Produto) {
             nome.text = produto.nome
             descricao.text = produto.descricao
-            valor.text = produto.valor.toPlainString()
+            valor.text = formataValor(produto.valor)
+
+        }
+
+        private fun formataValor(valor: BigDecimal): String {
+            val formatter = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+            return formatter.format(valor)
         }
     }
 
