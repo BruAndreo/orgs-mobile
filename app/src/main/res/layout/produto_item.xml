@@ -73,9 +73,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline"
-            app:srcCompat="@android:color/holo_purple"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            />
+            app:srcCompat="@drawable/imagem_padrao"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
