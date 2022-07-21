@@ -19,6 +19,8 @@ class FormProdutoActivity : AppCompatActivity() {
         ActivityFormProdutoBinding.inflate(layoutInflater)
     }
 
+    private var url: String? = null
+
     private val produtosDao = ProdutosDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class FormProdutoActivity : AppCompatActivity() {
 
         binding.formProdutoImagem.setOnClickListener {
             val bindingFormImagem = FormularioImagemBinding.inflate(layoutInflater)
-            val url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
+            url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
 
             bindingFormImagem.formularioImagemCarregar.setOnClickListener {
                 bindingFormImagem.formularioImagemImageview.load(url)
@@ -57,7 +59,7 @@ class FormProdutoActivity : AppCompatActivity() {
         val campoValor = binding.formProdutoValor.text.toString()
         val valor = if (campoValor.isBlank()) { BigDecimal.ZERO } else { BigDecimal(campoValor) }
 
-        return Produto(nome, descricao, valor)
+        return Produto(nome, descricao, valor, url)
     }
 
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.model.Produto
@@ -26,12 +27,13 @@ class ListaProdutosAdapter(
         private val nome = binding.produtoItemNome
         private val descricao = binding.produtoItemDescricao
         private val valor = binding.produtoItemValor
+        private val imageView = binding.produtoItemImagem
 
         fun vincula(produto: Produto) {
             nome.text = produto.nome
             descricao.text = produto.descricao
             valor.text = formataValor(produto.valor)
-
+            imageView.load(produto.imagem)
         }
 
         private fun formataValor(valor: BigDecimal): String {
