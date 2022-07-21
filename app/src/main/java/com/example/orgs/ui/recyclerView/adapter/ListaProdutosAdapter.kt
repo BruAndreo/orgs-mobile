@@ -33,7 +33,11 @@ class ListaProdutosAdapter(
             nome.text = produto.nome
             descricao.text = produto.descricao
             valor.text = formataValor(produto.valor)
-            imageView.load(produto.imagem)
+
+            imageView.load(produto.imagem) {
+                fallback(R.drawable.imagem_padrao)
+                error(R.drawable.imagem_padrao)
+            }
         }
 
         private fun formataValor(valor: BigDecimal): String {
