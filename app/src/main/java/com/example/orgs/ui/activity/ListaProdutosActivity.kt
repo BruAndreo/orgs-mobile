@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.orgs.R
@@ -22,12 +23,12 @@ class ListaProdutosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         buildRecyclerView()
+        buildFab()
     }
 
     override fun onResume() {
         super.onResume()
         adapter.refresh(produtos.getAll())
-        buildFab()
     }
 
     private fun buildRecyclerView() {
