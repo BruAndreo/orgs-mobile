@@ -30,9 +30,9 @@ class FormProdutoActivity : AppCompatActivity() {
 
         binding.formProdutoImagem.setOnClickListener {
             val bindingFormImagem = FormularioImagemBinding.inflate(layoutInflater)
-            url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
 
             bindingFormImagem.formularioImagemCarregar.setOnClickListener {
+                url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
                 bindingFormImagem.formularioImagemImageview.load(url)
             }
 
