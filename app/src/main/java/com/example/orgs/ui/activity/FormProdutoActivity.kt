@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import coil.load
 import com.example.orgs.R
 import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.databinding.ActivityFormProdutoBinding
+import com.example.orgs.databinding.FormularioImagemBinding
 import com.example.orgs.model.Produto
 import java.math.BigDecimal
 
@@ -25,9 +27,16 @@ class FormProdutoActivity : AppCompatActivity() {
         buildSaveBtn()
 
         binding.formProdutoImagem.setOnClickListener {
+            val bindingFormImagem = FormularioImagemBinding.inflate(layoutInflater)
+            val url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
+
+            bindingFormImagem.formularioImagemCarregar.setOnClickListener {
+                bindingFormImagem.formularioImagemImageview.load(url)
+            }
+
             AlertDialog.Builder(this)
-                .setView(R.layout.formulario_imagem)
-                .setPositiveButton("Confirmar") {_,_ ->}
+                .setView(bindingFormImagem.root)
+                .setPositiveButton("Confirmar") {_,_ -> binding.formProdutoImagem.load(url) }
                 .setNegativeButton("Cancelar") {_,_ ->}
                 .show()
         }
