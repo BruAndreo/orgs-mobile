@@ -12,6 +12,7 @@ import com.example.orgs.databinding.ActivityFormProdutoBinding
 import com.example.orgs.databinding.FormularioImagemBinding
 import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
+import com.example.orgs.ui.dialog.FormImageDialog
 import java.math.BigDecimal
 
 class FormProdutoActivity : AppCompatActivity() {
@@ -30,20 +31,10 @@ class FormProdutoActivity : AppCompatActivity() {
         buildSaveBtn()
 
         binding.formProdutoImagem.setOnClickListener {
-            val bindingFormImagem = FormularioImagemBinding.inflate(layoutInflater)
-
-            bindingFormImagem.formularioImagemCarregar.setOnClickListener {
-                url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
-                bindingFormImagem.formularioImagemImageview.loadImage(url)
+            FormImageDialog(this).show {url ->
+                this.url = url
+                binding.formProdutoImagem.loadImage(url)
             }
-
-            AlertDialog.Builder(this)
-                .setView(bindingFormImagem.root)
-                .setPositiveButton("Confirmar") {_,_ ->
-                    binding.formProdutoImagem.loadImage(url)
-                }
-                .setNegativeButton("Cancelar") {_,_ ->}
-                .show()
         }
     }
 
