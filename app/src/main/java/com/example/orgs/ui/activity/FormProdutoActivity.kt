@@ -10,6 +10,7 @@ import com.example.orgs.R
 import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.databinding.ActivityFormProdutoBinding
 import com.example.orgs.databinding.FormularioImagemBinding
+import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
 import java.math.BigDecimal
 
@@ -33,12 +34,14 @@ class FormProdutoActivity : AppCompatActivity() {
 
             bindingFormImagem.formularioImagemCarregar.setOnClickListener {
                 url = bindingFormImagem.formularioImagemTextinputUrl.text.toString()
-                bindingFormImagem.formularioImagemImageview.load(url)
+                bindingFormImagem.formularioImagemImageview.loadImage(url)
             }
 
             AlertDialog.Builder(this)
                 .setView(bindingFormImagem.root)
-                .setPositiveButton("Confirmar") {_,_ -> binding.formProdutoImagem.load(url) }
+                .setPositiveButton("Confirmar") {_,_ ->
+                    binding.formProdutoImagem.loadImage(url)
+                }
                 .setNegativeButton("Cancelar") {_,_ ->}
                 .show()
         }

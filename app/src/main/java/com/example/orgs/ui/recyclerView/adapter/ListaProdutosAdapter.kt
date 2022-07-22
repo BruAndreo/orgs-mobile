@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
+import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
 import java.math.BigDecimal
 import java.text.NumberFormat
@@ -33,11 +34,7 @@ class ListaProdutosAdapter(
             nome.text = produto.nome
             descricao.text = produto.descricao
             valor.text = formataValor(produto.valor)
-
-            imageView.load(produto.imagem) {
-                fallback(R.drawable.imagem_padrao)
-                error(R.drawable.imagem_padrao)
-            }
+            imageView.loadImage(produto.imagem)
         }
 
         private fun formataValor(valor: BigDecimal): String {
