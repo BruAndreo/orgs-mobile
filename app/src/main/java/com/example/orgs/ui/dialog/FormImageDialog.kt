@@ -24,10 +24,7 @@ class FormImageDialog(private val context: Context) {
 
         AlertDialog.Builder(context)
             .setView(binding.root)
-            .setPositiveButton("Confirmar") {_,_ ->
-//                binding.formProdutoImagem.loadImage(url)
-                setUrl(url)
-            }
+            .setPositiveButton("Confirmar") {_,_ -> setUrl(url) }
             .setNegativeButton("Cancelar") {_,_ ->}
             .show()
     }
