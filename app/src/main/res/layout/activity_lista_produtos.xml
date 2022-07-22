@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Novo Produto"
-        android:fontFamily="@font/montserrat_thin"
+        android:fontFamily="@font/montserrat_medium"
         app:icon="@drawable/ic_baseline_add_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
