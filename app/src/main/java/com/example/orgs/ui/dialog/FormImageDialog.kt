@@ -8,9 +8,14 @@ import com.example.orgs.extensions.loadImage
 
 class FormImageDialog(private val context: Context) {
 
-    fun show(setUrl: (url: String?) -> Unit) {
+    fun show(urlExistent: String? = null, setUrl: (url: String?) -> Unit) {
         val binding = FormularioImagemBinding.inflate(LayoutInflater.from(context))
         var url: String? = null
+
+        urlExistent?.let {
+            binding.formularioImagemImageview.loadImage(it)
+            binding.formularioImagemTextinputUrl.setText(it)
+        }
 
         binding.formularioImagemCarregar.setOnClickListener {
             url = binding.formularioImagemTextinputUrl.text.toString()
