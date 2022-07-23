@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,9 @@ class ListaProdutosActivity : AppCompatActivity() {
         ActivityListaProdutosBinding.inflate(layoutInflater)
     }
     private val produtos = ProdutosDao()
-    private val adapter = ListaProdutosAdapter(context = this, produtos = produtos.getAll())
+    private val adapter = ListaProdutosAdapter(context = this, produtos = produtos.getAll()) {
+        Log.i("ListaProdutosActivity", "click in ${it.nome}")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +36,9 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     private fun buildRecyclerView() {
         val listaProdutosView = binding.listaProdutos
+//        adapter.clickItemListener = {
+//            Log.i("ListaProdutosActivity", "click in ${it.nome}")
+//        }
         listaProdutosView.adapter = adapter
     }
 

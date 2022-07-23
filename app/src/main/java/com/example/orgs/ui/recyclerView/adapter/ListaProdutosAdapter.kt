@@ -2,6 +2,7 @@ package com.example.orgs.ui.recyclerView.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,12 +19,24 @@ import java.util.*
 
 class ListaProdutosAdapter(
     private val context: Context,
-    produtos: List<Produto>
+    produtos: List<Produto>,
+    var clickItemListener: (produto: Produto) -> Unit = {}
 ) : RecyclerView.Adapter<ListaProdutosAdapter.ViewHolder>() {
 
     private val produtos = produtos.toMutableList()
 
-    class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private lateinit var produto: Produto
+
+        init {
+            itemView.setOnClickListener {
+                Log.i("ListaProdutosAdapter", "Click item")
+                if (::produto.isInitialized) {
+                    clickItemListener(produto)
+                }
+            }
+        }
 
         private val nome = binding.produtoItemNome
         private val descricao = binding.produtoItemDescricao
