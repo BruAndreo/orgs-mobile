@@ -20,6 +20,10 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val produtos = ProdutosDao()
     private val adapter = ListaProdutosAdapter(context = this, produtos = produtos.getAll()) {
         Log.i("ListaProdutosActivity", "click in ${it.nome}")
+        val intent = Intent(this, DetalhesProdutoActivity::class.java).apply {
+            putExtra("produtoNome", it)
+        }
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +40,6 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     private fun buildRecyclerView() {
         val listaProdutosView = binding.listaProdutos
-//        adapter.clickItemListener = {
-//            Log.i("ListaProdutosActivity", "click in ${it.nome}")
-//        }
         listaProdutosView.adapter = adapter
     }
 

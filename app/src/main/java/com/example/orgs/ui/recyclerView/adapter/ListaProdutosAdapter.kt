@@ -31,7 +31,7 @@ class ListaProdutosAdapter(
 
         init {
             itemView.setOnClickListener {
-                Log.i("ListaProdutosAdapter", "Click item")
+//                Log.i("ListaProdutosAdapter", "Click item")
                 if (::produto.isInitialized) {
                     clickItemListener(produto)
                 }
@@ -44,6 +44,7 @@ class ListaProdutosAdapter(
         private val imageView = binding.produtoItemImagem
 
         fun vincula(produto: Produto) {
+            this.produto = produto
             nome.text = produto.nome
             descricao.text = produto.descricao
             valor.text = formataValor(produto.valor)
