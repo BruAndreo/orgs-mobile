@@ -6,8 +6,10 @@ import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.example.orgs.R
 import com.example.orgs.dao.ProdutosDao
+import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityListaProdutosBinding
 import com.example.orgs.ui.recyclerView.adapter.ListaProdutosAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -35,7 +37,10 @@ class ListaProdutosActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.refresh(produtos.getAll())
+
+        val db = AppDatabase.getInstance(this)
+        val produtosDao = db.produtoDao()
+        adapter.refresh(produtosDao.getAll())
     }
 
     private fun buildRecyclerView() {

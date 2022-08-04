@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import coil.load
 import com.example.orgs.R
 import com.example.orgs.dao.ProdutosDao
+import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityFormProdutoBinding
 import com.example.orgs.databinding.FormularioImagemBinding
 import com.example.orgs.extensions.loadImage
@@ -41,6 +42,9 @@ class FormProdutoActivity : AppCompatActivity() {
 
     private fun buildSaveBtn() {
         val btnSalvar = binding.formProdutoBtnSalvar
+
+        val produtosDao = AppDatabase.getInstance(this).produtoDao()
+
         btnSalvar.setOnClickListener {
             val produto = createProduto()
             produtosDao.add(produto)
@@ -54,7 +58,7 @@ class FormProdutoActivity : AppCompatActivity() {
         val campoValor = binding.formProdutoValor.text.toString()
         val valor = if (campoValor.isBlank()) { BigDecimal.ZERO } else { BigDecimal(campoValor) }
 
-        return Produto(nome, descricao, valor, url)
+        return Produto(0L, nome, descricao, valor, url)
     }
 
 }
