@@ -24,8 +24,6 @@ class FormProdutoActivity : AppCompatActivity() {
 
     private var url: String? = null
 
-    private val produtosDao = ProdutosDao()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

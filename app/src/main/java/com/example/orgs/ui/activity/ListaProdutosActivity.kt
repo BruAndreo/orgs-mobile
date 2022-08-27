@@ -19,8 +19,8 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityListaProdutosBinding.inflate(layoutInflater)
     }
-    private val produtos = ProdutosDao()
-    private val adapter = ListaProdutosAdapter(context = this, produtos = produtos.getAll()) {
+
+    private val adapter = ListaProdutosAdapter(context = this) {
         Log.i("ListaProdutosActivity", "click in ${it.nome}")
         val intent = Intent(this, DetalhesProdutoActivity::class.java).apply {
             putExtra("produtoNome", it)
