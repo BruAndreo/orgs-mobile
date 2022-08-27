@@ -2,15 +2,8 @@ package com.example.orgs.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import coil.load
-import com.example.orgs.R
-import com.example.orgs.dao.ProdutosDao
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityFormProdutoBinding
-import com.example.orgs.databinding.FormularioImagemBinding
 import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
 import com.example.orgs.ui.dialog.FormImageDialog
