@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.example.orgs.R
+import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityDetalhesProdutoBinding
 import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
@@ -39,12 +40,18 @@ class DetalhesProdutoActivity: AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.menu_detalhes_produto_editar -> {
-                Log.i("Meu menu", "Editar")
-            }
-            R.id.menu_detalhes_produto_deletar -> {
-                Log.i("Meu menu", "Deletar")
+        if (::produto.isInitialized) {
+            val db = AppDatabase.getInstance(this).produtoDao()
+
+            when(item.itemId) {
+                R.id.menu_detalhes_produto_editar -> {
+                    Log.i("Meu menu", "Editar")
+                    db.delete(produto)
+                    finish()
+                }
+                R.id.menu_detalhes_produto_deletar -> {
+                    Log.i("Meu menu", "Deletar")
+                }
             }
         }
 
