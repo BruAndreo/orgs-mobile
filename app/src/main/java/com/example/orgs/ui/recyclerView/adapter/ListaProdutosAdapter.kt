@@ -2,9 +2,13 @@ package com.example.orgs.ui.recyclerView.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import com.example.orgs.R
 import com.example.orgs.databinding.ProdutoItemBinding
 import com.example.orgs.extensions.loadImage
 import com.example.orgs.model.Produto
@@ -26,10 +30,29 @@ class ListaProdutosAdapter(
 
         init {
             itemView.setOnClickListener {
-//                Log.i("ListaProdutosAdapter", "Click item")
                 if (::produto.isInitialized) {
                     clickItemListener(produto)
                 }
+            }
+
+            itemView.setOnLongClickListener {
+                val pop = PopupMenu(itemView.context, it)
+                pop.inflate(R.menu.menu_detalhes_produto)
+
+                pop.setOnMenuItemClickListener { item ->
+                    when(item.itemId) {
+                        R.id.menu_detalhes_produto_editar -> {
+                            Log.i("Meu menu", "Editar")
+                        }
+                        R.id.menu_detalhes_produto_deletar -> {
+                            Log.i("Meu menu", "Deletar")
+                        }
+                    }
+                    true
+                }
+
+                pop.show()
+                true
             }
         }
 

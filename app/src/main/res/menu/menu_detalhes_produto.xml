@@ -11,7 +11,7 @@
     <item
         android:id="@+id/menu_detalhes_produto_deletar"
         android:icon="@drawable/ic_delete"
-        android:title="Editar"
-        app:showAsAction="ifRoom"/>
+        android:title="Deletar"
+        app:showAsAction="ifRoom" />
 
 </menu>
