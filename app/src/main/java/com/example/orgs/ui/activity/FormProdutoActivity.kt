@@ -2,6 +2,7 @@ package com.example.orgs.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.orgs.database.AppDatabase
 import com.example.orgs.databinding.ActivityFormProdutoBinding
 import com.example.orgs.extensions.loadImage
@@ -31,7 +32,7 @@ class FormProdutoActivity : AppCompatActivity() {
             }
         }
 
-        intent.getParcelableExtra<Produto>("nomeProduto")?.let {
+        intent.getParcelableExtra<Produto>("produtoNome")?.let {
             title = "Alterar Produto"
             idProduto = it.id
             url = it.imagem
