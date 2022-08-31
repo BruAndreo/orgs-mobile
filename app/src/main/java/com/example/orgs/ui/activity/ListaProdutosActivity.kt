@@ -17,7 +17,7 @@ class ListaProdutosActivity : AppCompatActivity() {
     private val adapter = ListaProdutosAdapter(context = this) {
         Log.i("ListaProdutosActivity", "click in ${it.nome}")
         val intent = Intent(this, DetalhesProdutoActivity::class.java).apply {
-            putExtra("produtoNome", it)
+            putExtra("idProduto", it.id)
         }
         startActivity(intent)
     }

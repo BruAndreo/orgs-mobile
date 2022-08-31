@@ -18,21 +18,29 @@ import java.util.*
 
 class DetalhesProdutoActivity: AppCompatActivity() {
 
-    private lateinit var produto: Produto
+    private var idProduto: Long = 0L
+    private var produto: Produto? = null
     private val binding by lazy {
         ActivityDetalhesProdutoBinding.inflate(layoutInflater)
+    }
+
+    private val db by lazy {
+        AppDatabase.getInstance(this).produtoDao()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        produto = intent.extras?.getParcelable<Produto>("produtoNome")!!
+        idProduto = intent.getLongExtra("idProduto", 0L)
+    }
 
-        binding.detalhesProdutoImagem.loadImage(produto.imagem)
-        binding.detalhesProdutoNome.text = produto.nome
-        binding.detalhesProdutoDescricao.text = produto.descricao
-        binding.detalhesProdutoValor.text = formataValor(produto.valor)
+    override fun onResume() {
+        super.onResume()
+        db.getById(idProduto)?.let {
+            produto = it
+            loadInfos(it)
+        } ?: finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,26 +49,31 @@ class DetalhesProdutoActivity: AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (::produto.isInitialized) {
-            val db = AppDatabase.getInstance(this).produtoDao()
-
+        if (produto != null) {
             when(item.itemId) {
                 R.id.menu_detalhes_produto_editar -> {
                     Log.i("Meu menu", "Editar")
                     Intent(this, FormProdutoActivity::class.java).apply {
-                        putExtra("produtoNome", produto)
+                        putExtra("idProduto", idProduto)
                         startActivity(this)
                     }
                 }
                 R.id.menu_detalhes_produto_deletar -> {
                     Log.i("Meu menu", "Deletar")
-                    db.delete(produto)
+                    db.delete(produto!!)
                     finish()
                 }
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun loadInfos(produto: Produto) {
+        binding.detalhesProdutoImagem.loadImage(produto.imagem)
+        binding.detalhesProdutoNome.setText(produto.nome)
+        binding.detalhesProdutoDescricao.setText(produto.descricao)
+        binding.detalhesProdutoValor.setText(produto.valor.toPlainString())
     }
 
     private fun formataValor(valor: BigDecimal): String {

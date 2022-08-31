@@ -16,14 +16,21 @@ class FormProdutoActivity : AppCompatActivity() {
         ActivityFormProdutoBinding.inflate(layoutInflater)
     }
 
+    private val db by lazy {
+        AppDatabase.getInstance(this).produtoDao()
+    }
+
     private var url: String? = null
     private var idProduto = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        title = "Cadastrar Produto"
         buildSaveBtn()
+
+        idProduto = intent.getLongExtra("idProduto", 0L)
+
+        title = "Cadastrar Produto"
 
         binding.formProdutoImagem.setOnClickListener {
             FormImageDialog(this).show(this.url) {url ->
@@ -31,31 +38,36 @@ class FormProdutoActivity : AppCompatActivity() {
                 binding.formProdutoImagem.loadImage(url)
             }
         }
+    }
 
-        intent.getParcelableExtra<Produto>("produtoNome")?.let {
+    override fun onResume() {
+        super.onResume()
+
+        db.getById(idProduto)?.let {
             title = "Alterar Produto"
-            idProduto = it.id
-            url = it.imagem
-            binding.formProdutoImagem.loadImage(it.imagem)
-            binding.formProdutoNome.setText(it.nome)
-            binding.formProdutoDescricao.setText(it.descricao)
-            binding.formProdutoValor.setText(it.valor.toPlainString())
-        }
+            loadInfos(it)
+        } ?: finish()
+    }
+
+    private fun loadInfos(produto: Produto) {
+        url = produto.imagem
+        binding.formProdutoImagem.loadImage(produto.imagem)
+        binding.formProdutoNome.setText(produto.nome)
+        binding.formProdutoDescricao.setText(produto.descricao)
+        binding.formProdutoValor.setText(produto.valor.toPlainString())
     }
 
     private fun buildSaveBtn() {
         val btnSalvar = binding.formProdutoBtnSalvar
 
-        val produtosDao = AppDatabase.getInstance(this).produtoDao()
-
         btnSalvar.setOnClickListener {
             val produto = createProduto()
 
             if (idProduto > 0) {
-                produtosDao.update(produto)
+                db.update(produto)
             }
             else {
-                produtosDao.add(produto)
+                db.add(produto)
             }
 
             finish()
