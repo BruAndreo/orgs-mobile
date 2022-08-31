@@ -16,6 +16,7 @@ class FormProdutoActivity : AppCompatActivity() {
     }
 
     private var url: String? = null
+    private var idProduto = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,16 @@ class FormProdutoActivity : AppCompatActivity() {
                 binding.formProdutoImagem.loadImage(url)
             }
         }
+
+        intent.getParcelableExtra<Produto>("nomeProduto")?.let {
+            title = "Alterar Produto"
+            idProduto = it.id
+            url = it.imagem
+            binding.formProdutoImagem.loadImage(it.imagem)
+            binding.formProdutoNome.setText(it.nome)
+            binding.formProdutoDescricao.setText(it.descricao)
+            binding.formProdutoValor.setText(it.valor.toPlainString())
+        }
     }
 
     private fun buildSaveBtn() {
@@ -38,7 +49,14 @@ class FormProdutoActivity : AppCompatActivity() {
 
         btnSalvar.setOnClickListener {
             val produto = createProduto()
-            produtosDao.add(produto)
+
+            if (idProduto > 0) {
+                produtosDao.update(produto)
+            }
+            else {
+                produtosDao.add(produto)
+            }
+
             finish()
         }
     }
@@ -49,7 +67,7 @@ class FormProdutoActivity : AppCompatActivity() {
         val campoValor = binding.formProdutoValor.text.toString()
         val valor = if (campoValor.isBlank()) { BigDecimal.ZERO } else { BigDecimal(campoValor) }
 
-        return Produto(0L, nome, descricao, valor, url)
+        return Produto(idProduto, nome, descricao, valor, url)
     }
 
 }

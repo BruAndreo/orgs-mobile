@@ -1,5 +1,6 @@
 package com.example.orgs.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -46,11 +47,15 @@ class DetalhesProdutoActivity: AppCompatActivity() {
             when(item.itemId) {
                 R.id.menu_detalhes_produto_editar -> {
                     Log.i("Meu menu", "Editar")
-                    db.delete(produto)
-                    finish()
+                    Intent(this, FormProdutoActivity::class.java).apply {
+                        putExtra("produtoNome", produto)
+                        startActivity(this)
+                    }
                 }
                 R.id.menu_detalhes_produto_deletar -> {
                     Log.i("Meu menu", "Deletar")
+                    db.delete(produto)
+                    finish()
                 }
             }
         }

@@ -43,6 +43,7 @@ class ListaProdutosAdapter(
                     when(item.itemId) {
                         R.id.menu_detalhes_produto_editar -> {
                             Log.i("Meu menu", "Editar")
+
                         }
                         R.id.menu_detalhes_produto_deletar -> {
                             Log.i("Meu menu", "Deletar")
